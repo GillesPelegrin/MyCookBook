@@ -63,8 +63,6 @@ const RecipeCard = () => {
                 </div>
             </div>
 
-
-
             <div className="linked-components">
                 <h2>Linked Components</h2>
                 <div className="component-box">Component 1</div>

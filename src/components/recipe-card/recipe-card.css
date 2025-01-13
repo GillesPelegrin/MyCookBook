@@ -1,22 +1,20 @@
 .recipe-card {
     padding: 1rem;
     /* max-width: 900px; */
-    margin: auto;
-    width: 50%;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 @media (min-width: 768px) {
-.recipe-header {
-    display: flex;
-    gap: 1rem;
-}
+    .recipe-header {
+        display: flex;
+        gap: 0.5rem;
+    }
 
     .recipe-content {
-        display: flex;
-        gap: 3rem;
+        display: grid;
+        grid-template-columns: 33% auto;
     }
 
     .description,
@@ -35,7 +33,6 @@
 .recipe-header {
     display: grid;
     grid-template-columns: 33% auto;
-    grid-template-rows: 1 1;
 }
 
 .recipe-title {}

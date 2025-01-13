@@ -1,0 +1,13 @@
+.navbar {
+    background-color: gray;
+    padding: 0.7rem 2rem;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.login-icon {
+    display: flex;
+    gap: 1rem;
+    cursor: pointer;
+}
