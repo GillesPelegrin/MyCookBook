@@ -1,15 +1,45 @@
+import { DatabaseClientContext } from '../../service/database-context';
+import { useContext, useEffect, useState } from 'react';
 import './recipe-card.css'; // Assuming a CSS file for styling
+import { ComponentModel } from '../../database/component-model';
+// import { Database } from '../../database/database.types';
 
 const RecipeCard = () => {
+
+
+    const [component, setComponent] = useState<ComponentModel>({} as ComponentModel);
+
+    useEffect(() => {
+        const getComponent = async () => {
+            const { data } = await databaseClient
+            .from('Component')
+            .select()
+            .eq('id', '1')
+
+            setComponent(data[0])
+            // console.log(error)
+        }
+
+        getComponent()
+        
+    })
+
+    const databaseClient = useContext(DatabaseClientContext);
+    // const { data } = await databaseClient.from('components').select().returns<Component>()
+     
+
+
     return (
         <div className="recipe-card">
+
+
             <header className="search">
                 <input type="text" placeholder="Find/add new techniques or recipes" className="search-bar" />
             </header>
 
             <div className='recipe-header'>
                 <div className="recipe-title">
-                    <h1>Recipe: Title</h1>
+                    <h1>Recipe: {component?.title}</h1>
                     <div className="tags">
                         <span className="tag">Tag 1</span>
                         <span className="tag">Tag 2</span>
@@ -24,8 +54,7 @@ const RecipeCard = () => {
             <div className="description">
                 <h2>Description</h2>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                {component?.description}
                 </p>
             </div>
 
