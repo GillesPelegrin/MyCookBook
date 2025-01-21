@@ -1,11 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router';
 import { ComponentModel } from '../../database/component-model';
+import { LinkedComponentModel } from '../../database/linked-component-model';
 import { DatabaseClientContext } from '../../service/database-context';
 import SearchBar from '../search-bar/search-bar';
 import './recipe-card.css'; // Assuming a CSS file for styling
-import { useLocation } from 'react-router';
-// import { IngredientModel } from '../../database/ingredient-model';
-// import { Database } from '../../database/database.types';
 
 const RecipeCard = () => {
 
@@ -15,6 +14,7 @@ const RecipeCard = () => {
 
 
     const [component, setComponent] = useState<ComponentModel>({} as ComponentModel);
+    const [linkedComponent, setLinkedComponent] = useState<Array<LinkedComponentModel>>([]);
     // const [ingredients, setIngredients] = useState<IngredientModel>({} as IngredientModel);
     const databaseClient = useContext(DatabaseClientContext);
 
@@ -37,13 +37,29 @@ const RecipeCard = () => {
                   `)
                 .eq('id', query)
 
-            console.log(componentData[0])
+            // console.log(componentData[0])
             setComponent(componentData[0])
+
+            const { data: linkedComponentData } = await databaseClient
+                .from('Component_Component')
+                .select(` Component:component_component_id (title, id)`)
+                .eq('recipe_component_id', query);
+
+            console.log(linkedComponentData)
+            setLinkedComponent(linkedComponentData)
+
+
         }
 
         getComponent()
 
-    }, [databaseClient])
+    }, [databaseClient, query])
+
+    const navigate = useNavigate();
+
+    const handleClick = (id: string) => {
+        navigate(`/recipe?query=${id}`);
+    };
 
 
     return (
@@ -111,9 +127,16 @@ const RecipeCard = () => {
             </div>
 
             <div className="linked-components">
-                <h2>Gelinkte componenten</h2>
-                <div className="component-box">Component 1</div>
-                <div className="component-box">Component 2</div>
+
+                {linkedComponent.length != 0 && <h2>Gelinkte componenten</h2>}
+                {
+                    linkedComponent
+                        .map(linked => linked.Component)
+                        .map((component, index) => (
+                            <div className="component-box" key={index} onClick={() => handleClick(component.id)}>{component.title}</div>
+
+                        ))
+                }
             </div>
         </div>
     );

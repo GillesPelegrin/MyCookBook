@@ -21,7 +21,7 @@ export default function Home() {
 
                 <ul className="history-recipe-cards">
                     <li className="history-recipe-card" onClick={() => handleClick("1")}>Pesto</li>
-                    <li className="history-recipe-card" onClick={() => handleClick("1")}> Pesto</li>
+                    <li className="history-recipe-card" onClick={() => handleClick("2")}>Fancy Pesto</li>
                     <li className="history-recipe-card" onClick={() => handleClick("1")}> Pesto</li>
                 </ul>
 
