@@ -1,48 +1,70 @@
-import { DatabaseClientContext } from '../../service/database-context';
 import { useContext, useEffect, useState } from 'react';
-import './recipe-card.css'; // Assuming a CSS file for styling
 import { ComponentModel } from '../../database/component-model';
+import { DatabaseClientContext } from '../../service/database-context';
+import SearchBar from '../search-bar/search-bar';
+import './recipe-card.css'; // Assuming a CSS file for styling
+import { useLocation } from 'react-router';
+// import { IngredientModel } from '../../database/ingredient-model';
 // import { Database } from '../../database/database.types';
 
 const RecipeCard = () => {
 
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const query = queryParams.get('query');
+
 
     const [component, setComponent] = useState<ComponentModel>({} as ComponentModel);
+    // const [ingredients, setIngredients] = useState<IngredientModel>({} as IngredientModel);
+    const databaseClient = useContext(DatabaseClientContext);
 
     useEffect(() => {
         const getComponent = async () => {
-            const { data } = await databaseClient
-            .from('Component')
-            .select()
-            .eq('id', '1')
 
-            setComponent(data[0])
-            // console.log(error)
+            const { data: componentData } = await databaseClient
+                .from('Component')
+                .select(`
+                    *,
+                    Component_Ingredient (
+                      *,
+                      Ingredient (*)
+                    ),
+                    Component_Tags (
+                      *,
+                      Tags (*)
+                    ),
+                    RecipeSteps (*)
+                  `)
+                .eq('id', query)
+
+            console.log(componentData[0])
+            setComponent(componentData[0])
         }
 
         getComponent()
-        
-    })
 
-    const databaseClient = useContext(DatabaseClientContext);
-    // const { data } = await databaseClient.from('components').select().returns<Component>()
-     
+    }, [databaseClient])
 
 
     return (
         <div className="recipe-card">
 
+            <div className='header'>Recept</div>
 
-            <header className="search">
-                <input type="text" placeholder="Find/add new techniques or recipes" className="search-bar" />
-            </header>
+            <SearchBar />
 
             <div className='recipe-header'>
                 <div className="recipe-title">
-                    <h1>Recipe: {component?.title}</h1>
+                    <h1>{component?.title}</h1>
                     <div className="tags">
-                        <span className="tag">Tag 1</span>
-                        <span className="tag">Tag 2</span>
+                        {
+                            component && component.Component_Tags && component.Component_Tags
+                                .map(ci => ci.Tags)
+                                .map((tag, index) => (
+                                    <span className="tag" key={index}>{tag.name}</span>
+                                ))
+                        }
+
                     </div>
                 </div>
 
@@ -52,48 +74,44 @@ const RecipeCard = () => {
             </div>
 
             <div className="description">
-                <h2>Description</h2>
+                <h2>Beschrijving</h2>
                 <p>
-                {component?.description}
+                    {component?.description}
                 </p>
             </div>
 
             <div className="recipe-content">
                 <div className="ingredients">
-                    <h2>Ingredients</h2>
-                    <h3>Component 1</h3>
+                    <h2>Ingredienten</h2>
                     <ul>
-                        <li>Ingredient 1</li>
-                        <li>Ingredient 2</li>
-                    </ul>
-                    <h3>General</h3>
-                    <ul>
-                        <li>Ingredient 3</li>
-                        <li>Ingredient 4</li>
-                        <li>Ingredient 5</li>
+                        {
+                            component && component.Component_Ingredient && component.Component_Ingredient
+                                .map(ci => ci.Ingredient)
+                                .map((ingredient, index) => (
+                                    <li key={index}>{ingredient.name}</li>
+                                ))
+                        }
                     </ul>
                 </div>
 
                 <div className="recipe-details">
                     <div className="directions">
-                        <h2>Directions</h2>
+                        <h2>Stappen</h2>
                         <ol>
-                            <li>
-                                Step 1: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            </li>
-                            <li>
-                                Step 2: Component 1 - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            </li>
-                            <li>
-                                Step 3: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            </li>
+
+                            {
+                                component && component.RecipeSteps && component.RecipeSteps
+                                    .map((recipeSteps, index) => (
+                                        <li key={index}>{recipeSteps.description}</li>
+                                    ))
+                            }
                         </ol>
                     </div>
                 </div>
             </div>
 
             <div className="linked-components">
-                <h2>Linked Components</h2>
+                <h2>Gelinkte componenten</h2>
                 <div className="component-box">Component 1</div>
                 <div className="component-box">Component 2</div>
             </div>

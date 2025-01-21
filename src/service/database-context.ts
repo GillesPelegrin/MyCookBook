@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { Database } from '../database/database.types';
+// import { Database } from '../database/database.types';
 
 
 export const DatabaseClientContext = createContext<any>({});

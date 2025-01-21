@@ -1,0 +1,31 @@
+.create-recipe-menu {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.header {
+    padding-top: 1rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 32px;
+}
+
+.sub-header {
+    padding-top: 1rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 24px;
+}
+
+
+.create-recipe-card {
+    width: 90%;
+    padding: 1rem 1rem;
+
+    background-color: lightgray;
+    margin-bottom: 1rem;
+
+    border-radius: 4px;
+    text-align: center;
+}

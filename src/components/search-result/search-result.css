@@ -1,0 +1,19 @@
+.search-result-card-list {
+    padding: 0;
+}
+
+.search-result-card {
+    cursor: pointer;
+
+    padding: 1rem;
+    border-radius: 4px;
+    background-color: lightgray;
+    list-style-type: none;
+}
+
+.search-result-card:hover {
+    
+    background-color: gray;
+    color: white;
+   
+}
