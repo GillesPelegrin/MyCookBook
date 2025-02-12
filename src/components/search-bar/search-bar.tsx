@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { FaSearch } from "react-icons/fa";
+
 import "./search-bar.css";
 
 
@@ -16,7 +18,7 @@ export default function SearchBar() {
 
     return (
 
-        <header className="search">
+        <div className="search">
             <input
                 type="text"
                 value={inputValue}
@@ -24,8 +26,11 @@ export default function SearchBar() {
                 onKeyDown={handleKeyPress}
                 placeholder="Find/add new techniques or recipes" className="search-bar"
             />
-            <div className="search-icon">S</div>
-        </header>
+            <div className="search-icon">
+                <div> <FaSearch size="20px" /></div>
+                
+                </div>
+        </div>
 
 
     );

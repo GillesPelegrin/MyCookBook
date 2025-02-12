@@ -4,7 +4,7 @@ import { ComponentModel } from '../../database/component-model';
 import { LinkedComponentModel } from '../../database/linked-component-model';
 import { DatabaseClientContext } from '../../service/database-context';
 import SearchBar from '../search-bar/search-bar';
-import './recipe-card.css'; // Assuming a CSS file for styling
+import './recipe-card.css'; 
 
 const RecipeCard = () => {
 
