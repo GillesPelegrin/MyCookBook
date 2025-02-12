@@ -65,27 +65,31 @@ const RecipeCard = () => {
     return (
         <div className="recipe-card">
 
-            <div className='header'>Recept</div>
+            <div className='nav'>
+                <div>&lt;</div>
+                <div>Search</div>
+                <div>&gt;</div>
+            </div>
 
             <SearchBar />
 
             <div className='recipe-header'>
                 <div className="recipe-title">
                     <h1>{component?.title}</h1>
-                    <div className="tags">
-                        {
-                            component && component.Component_Tags && component.Component_Tags
-                                .map(ci => ci.Tags)
-                                .map((tag, index) => (
-                                    <span className="tag" key={index}>{tag.name}</span>
-                                ))
-                        }
+                    {/* <div className="tags"> */}
+                        {/* { */}
+                            {/* component && component.Component_Tags && component.Component_Tags */}
+                                {/* .map(ci => ci.Tags) */}
+                                {/* .map((tag, index) => ( */}
+                                    {/* <span className="tag" key={index}>{tag.name}</span> */}
+                                {/* )) */}
+                        {/* } */}
 
-                    </div>
+                    {/* </div> */}
                 </div>
 
                 <div className="image-section">
-                    <div className="image-placeholder">Picture</div>
+                    <div className="image-placeholder"></div>
                 </div>
             </div>
 

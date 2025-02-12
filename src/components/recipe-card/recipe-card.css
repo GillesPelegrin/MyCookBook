@@ -15,17 +15,28 @@
     }
 }
 
-.header {
-    padding-top: 1rem;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 32px;
+
+.nav {
+    padding-top: 2rem;
+    display: flex;
+    justify-content: space-around;
 }
 
 .recipe-header {
     display: grid;
-    grid-template-columns: 33% auto;
+    grid-template-columns: auto 33% ;
+    gap: 1rem;
 }
 
+
+.recipe-title {
+    background-color: rgba(137, 204, 149, 0.8);
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    padding: 1rem;
+    color: #333232;
+    font-size: 24px;
+}
 
 .recipe-title h1 {
     font-size: 1.5rem;
@@ -46,10 +57,11 @@
 
 .image-section .image-placeholder {
     background: #ddd;
-    height: 150px;
-    border-radius: 4px;
+    /* height: 150px; */
+    height: 100%;
+    border-radius: 16px;
     text-align: center;
-    line-height: 150px;
+    /* line-height: 150px; */
     font-size: 1rem;
     color: #666;
 }
@@ -65,4 +77,13 @@
     background: #e6e6e6;
     border-radius: 4px;
     text-align: center;
+}
+
+
+.description {
+    margin: 0 1rem;
+}
+
+.description h2 {
+    /* font-style: ; */
 }

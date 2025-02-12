@@ -24,6 +24,7 @@ export default function SearchBar() {
                 onKeyDown={handleKeyPress}
                 placeholder="Find/add new techniques or recipes" className="search-bar"
             />
+            <div className="search-icon">S</div>
         </header>
 
 
